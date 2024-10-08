@@ -16,11 +16,11 @@ service.interceptors.request.use((config) => {
 
 service.interceptors.response.use((res: AxiosResponse) => {
     return res.data;
-}, (err: AxiosError) => {
-    if (err.status === 401) {
+}, (err: AxiosError<{ message: string }>) => {
+    if (err.status === 401 && history.location.pathname !== '/login') {
         history.push('/login');
     }
-    message.error(err.message);
+    message.error(err.response?.data?.message || '请求失败');
     return Promise.reject(err);
 });
 

@@ -1,5 +1,5 @@
 import type { FormProps } from 'antd';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 import './index.scss';
 import UserLogin from '@/assets/user_login.svg';
 import { useForm } from 'antd/es/form/Form';
@@ -80,14 +80,6 @@ export default function Login() {
                             ]}
                         >
                             <Input.Password />
-                        </Form.Item>
-
-                        <Form.Item<FieldType>
-                            name="remember"
-                            valuePropName="checked"
-                            wrapperCol={{ offset: 6, span: 16 }}
-                        >
-                            <Checkbox>记住我</Checkbox>
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ offset: 6, span: 16 }}>

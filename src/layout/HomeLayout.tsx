@@ -1,29 +1,15 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import React, { useState } from 'react';
-import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme } from 'antd';
 
 const { Header, Sider, Content } = Layout;
 export default function HomeLayout() {
-    const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
     const items = [
         {
             key: '1',
-            icon: <UserOutlined />,
-            label: <Link to="/">首页</Link>,
-        },
-        {
-            key: '2',
-            icon: <VideoCameraOutlined />,
-            label: <Link to="/test">测试</Link>,
+            label: <Link to="/board-game-management">桌游管理</Link>,
         },
     ];
     const currentPath = useLocation().pathname;
@@ -38,44 +24,30 @@ export default function HomeLayout() {
     });
     return (
         <Layout>
-            <Sider trigger={null} collapsible collapsed={collapsed}>
-                <div className="logo-vertical" />
-                <Menu
-                    theme="dark"
-                    mode="inline"
-                    defaultSelectedKeys={defaultSelectedKeys}
-                    items={items}
-                />
-            </Sider>
+            <Header style={{ display: 'flex', alignItems: 'center' }}>
+                <h1 className="logo-vertical">桌游设计助理</h1>
+            </Header>
             <Layout>
-                <Header style={{ padding: 0, background: colorBgContainer }}>
-                    <Button
-                        type="text"
-                        icon={
-                            collapsed ? (
-                                <MenuUnfoldOutlined />
-                            ) : (
-                                <MenuFoldOutlined />
-                            )
-                        }
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{
-                            fontSize: '16px',
-                            width: 64,
-                            height: 64,
-                        }}
+                <Sider width={200} style={{ background: colorBgContainer }}>
+                    <Menu
+                        mode="inline"
+                        defaultSelectedKeys={defaultSelectedKeys}
+                        style={{ height: '100%', borderRight: 0 }}
+                        items={items}
                     />
-                </Header>
-                <Content
-                    style={{
-                        margin: 12,
-                        padding: 12,
-                        minHeight: 280,
-                        background: colorBgContainer,
-                    }}
-                >
-                    <Outlet />
-                </Content>
+                </Sider>
+                <Layout style={{ padding: '12px' }}>
+                    <Content
+                        style={{
+                            padding: 12,
+                            margin: 0,
+                            minHeight: 280,
+                            background: colorBgContainer,
+                        }}
+                    >
+                        <Outlet />
+                    </Content>
+                </Layout>
             </Layout>
         </Layout>
     );
