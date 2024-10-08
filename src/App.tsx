@@ -5,7 +5,7 @@ import {
     Routes,
 } from 'react-router-dom';
 import BoardGameMgt from './pages/board-game-mgt/Index';
-import HomeLayout from './layout/HomeLayout';
+import CommonLayout from './layout/CommonLayout';
 import Login from './pages/login/Index';
 import NotFound from './layout/404';
 import history from './utils/history';
@@ -14,7 +14,7 @@ function App() {
     return (
         <HistoryRouter history={history}>
             <Routes>
-                <Route element={<HomeLayout />}>
+                <Route element={<CommonLayout />}>
                     <Route
                         path="/"
                         element={

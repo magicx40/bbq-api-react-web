@@ -2,7 +2,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Layout, Menu, theme } from 'antd';
 
 const { Header, Sider, Content } = Layout;
-export default function HomeLayout() {
+export default function CommonLayout() {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
@@ -13,12 +13,12 @@ export default function HomeLayout() {
         },
     ];
     const currentPath = useLocation().pathname;
-    const defaultSelectedKeys: string[] = [];
+    const selectedKeys: string[] = [];
     items.forEach(item => {
         if (item.label && item.label?.props) {
             const pathname = item.label?.props.to;
             if (pathname === currentPath) {
-                defaultSelectedKeys.push(item.key);
+                selectedKeys.push(item.key);
             }
         }
     });
@@ -31,7 +31,7 @@ export default function HomeLayout() {
                 <Sider width={200} style={{ background: colorBgContainer }}>
                     <Menu
                         mode="inline"
-                        defaultSelectedKeys={defaultSelectedKeys}
+                        selectedKeys={selectedKeys}
                         style={{ height: '100%', borderRight: 0 }}
                         items={items}
                     />
@@ -39,10 +39,9 @@ export default function HomeLayout() {
                 <Layout style={{ padding: '12px' }}>
                     <Content
                         style={{
-                            padding: 12,
                             margin: 0,
                             minHeight: 280,
-                            background: colorBgContainer,
+                            overflow: 'scroll'
                         }}
                     >
                         <Outlet />
