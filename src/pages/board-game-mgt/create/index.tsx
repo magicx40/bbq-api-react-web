@@ -1,5 +1,5 @@
-import { DatePicker, Form, Input, InputNumber, Modal } from "antd";
-import { useState } from "react";
+import { DatePicker, Form, Input, InputNumber, Modal } from 'antd';
+import { useState } from 'react';
 
 interface CreateBoardGameProps {
     open: boolean;
@@ -8,15 +8,22 @@ interface CreateBoardGameProps {
     onCancel: (e: any) => void;
 }
 
-export default function CreateBoardGame({ open, confirmLoading, onOk, onCancel }: CreateBoardGameProps) {
+export default function CreateBoardGame({
+    open,
+    confirmLoading,
+    onOk,
+    onCancel,
+}: CreateBoardGameProps) {
     const [form] = Form.useForm();
 
     const handleOk = (e: any) => {
-        form.validateFields().then((values) => {
-            onOk(e);
-        }).catch((error) => {
-            console.log(error);
-        });
+        form.validateFields()
+            .then(values => {
+                onOk(e);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     };
     const handleCancel = (e: any) => {
         form.resetFields();
@@ -58,7 +65,13 @@ export default function CreateBoardGame({ open, confirmLoading, onOk, onCancel }
                 <Form.Item
                     name="minPlayers"
                     label="最小玩家数"
-                    rules={[{ required: true, message: '请输入最小玩家数!', type: 'number' }]}
+                    rules={[
+                        {
+                            required: true,
+                            message: '请输入最小玩家数!',
+                            type: 'number',
+                        },
+                    ]}
                 >
                     <InputNumber min={1} />
                 </Form.Item>
@@ -66,7 +79,13 @@ export default function CreateBoardGame({ open, confirmLoading, onOk, onCancel }
                 <Form.Item
                     name="maxPlayers"
                     label="最大玩家数"
-                    rules={[{ required: true, message: '请输入最大玩家数!', type: 'number' }]}
+                    rules={[
+                        {
+                            required: true,
+                            message: '请输入最大玩家数!',
+                            type: 'number',
+                        },
+                    ]}
                 >
                     <InputNumber min={1} />
                 </Form.Item>
@@ -74,15 +93,27 @@ export default function CreateBoardGame({ open, confirmLoading, onOk, onCancel }
                 <Form.Item
                     name="playTime"
                     label="游玩时长"
-                    rules={[{ required: true, message: '请输入游玩时长!', type: 'number' }]}
+                    rules={[
+                        {
+                            required: true,
+                            message: '请输入游玩时长!',
+                            type: 'number',
+                        },
+                    ]}
                 >
-                    <InputNumber min={1} />
+                    <InputNumber min={1} suffix="分钟" />
                 </Form.Item>
 
                 <Form.Item
                     name="ageRating"
                     label="年龄评级"
-                    rules={[{ required: true, message: '请输入年龄评级!', type: 'number' }]}
+                    rules={[
+                        {
+                            required: true,
+                            message: '请输入年龄评级!',
+                            type: 'number',
+                        },
+                    ]}
                 >
                     <InputNumber min={1} />
                 </Form.Item>
@@ -111,10 +142,7 @@ export default function CreateBoardGame({ open, confirmLoading, onOk, onCancel }
                     <Input />
                 </Form.Item>
 
-                <Form.Item
-                    name="imageUrl"
-                    label="图片链接"
-                >
+                <Form.Item name="imageUrl" label="图片链接">
                     <Input />
                 </Form.Item>
             </Form>
