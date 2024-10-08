@@ -1,7 +1,8 @@
-import { Col, Input, Row, Table, TableProps, theme } from "antd";
+import { Button, Col, Input, Row, Table, TableProps, theme } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { getBoardGameList } from '@/api/board-game-mgt';
 import './index.scss';
+import CreateBoardGame from "./create";
 
 interface DataType {
     title: string;
@@ -46,7 +47,7 @@ const columns: TableProps<DataType>['columns'] = [
         key: 'maxPlayers',
     },
     {
-        title: '游玩时间',
+        title: '游玩时间（分钟）',
         dataIndex: 'playTime',
         key: 'playTime',
     },
@@ -84,6 +85,8 @@ export default function BoardGameMgt() {
         pageSize: 10,
         total: 0,
     });
+    const [open, setOpen] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
 
     const getBoardGames = useCallback(async () => {
         setLoading(true);
@@ -116,6 +119,17 @@ export default function BoardGameMgt() {
         }));
     };
 
+    const showCreateBoardGameModal = () => {
+        setOpen(true);
+    };
+
+    const handleCreateBoardGame = () => {
+    };
+
+    const handleCreateBoardGameCancel = () => {
+        setOpen(false);
+    };
+
     useEffect(() => {
         getBoardGames();
     }, [getBoardGames]);
@@ -124,6 +138,9 @@ export default function BoardGameMgt() {
         <>
             <div className="board-games-header" style={{ background: colorBgContainer, padding: 12 }}>
                 <h2>桌游列表</h2>
+                <div className="header-extra-actions">
+                    <Button type="primary" onClick={showCreateBoardGameModal}>添加桌游</Button>
+                </div>
             </div>
             <div className="board-games-content" style={{ background: colorBgContainer, padding: 12, marginTop: 12 }}>
                 <Row>
@@ -143,7 +160,7 @@ export default function BoardGameMgt() {
                     </Col>
                 </Row>
                 <Table<DataType>
-                    className="board-game-table"
+                    className="board-games-table"
                     columns={columns}
                     dataSource={data}
                     rowKey={'id'}
@@ -157,6 +174,11 @@ export default function BoardGameMgt() {
                     onChange={handleTableChange}
                 />
             </div>
+            <CreateBoardGame
+                open={open}
+                confirmLoading={confirmLoading}
+                onOk={handleCreateBoardGame}
+                onCancel={handleCreateBoardGameCancel} />
         </>
     );
 }

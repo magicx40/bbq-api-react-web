@@ -1,3 +1,11 @@
-.board-game-table {
-    margin-top: 15px;
+.board-games-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.board-games-content {
+    .board-games-table {
+        margin-top: 15px;
+    }
 }
