@@ -3,10 +3,12 @@
     height: 100%;
     .ant-layout {
         height: 100%;
-        .logo-vertical {
-            color: #FFFFFF;
-            font-weight: 700;
-            font-size: 22px;
+        .layout-header {
+            .logo-vertical {
+                color: #FFFFFF;
+                font-weight: 700;
+                font-size: 22px;
+            }
         }
     }
 }

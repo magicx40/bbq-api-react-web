@@ -1,8 +1,8 @@
-import { Button, Col, Input, Row, Table, TableProps, theme } from "antd";
-import { useCallback, useEffect, useState } from "react";
+import { Button, Col, Input, Row, Table, TableProps, theme } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
 import { getBoardGameList } from '@/api/board-game-mgt';
 import './index.scss';
-import CreateBoardGame from "./create";
+import CreateBoardGame from './create';
 
 interface DataType {
     title: string;
@@ -70,14 +70,14 @@ const columns: TableProps<DataType>['columns'] = [
         title: '分类',
         dataIndex: 'category',
         key: 'category',
-    }
+    },
 ];
 
 export default function BoardGameMgt() {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState('');
     const [data, setData] = useState<DataType[]>([]);
     const [loading, setLoading] = useState(true);
     const [pagination, setPagination] = useState<Pagination>({
@@ -94,11 +94,11 @@ export default function BoardGameMgt() {
             const { code, data }: any = await getBoardGameList({
                 currentPage: pagination.current,
                 limit: pagination.pageSize,
-                title: search
+                title: search,
             });
             if (code === 200) {
                 setData(data.items || []);
-                setPagination((prev) => ({
+                setPagination(prev => ({
                     ...prev,
                     total: data.total,
                 }));
@@ -112,7 +112,7 @@ export default function BoardGameMgt() {
     }, [pagination.current, pagination.pageSize, search]);
 
     const handleTableChange = (newPagination: any) => {
-        setPagination((prev) => ({
+        setPagination(prev => ({
             ...prev,
             current: newPagination.current,
             pageSize: newPagination.pageSize,
@@ -124,10 +124,12 @@ export default function BoardGameMgt() {
     };
 
     const handleCreateBoardGame = () => {
+        setConfirmLoading(false);
     };
 
     const handleCreateBoardGameCancel = () => {
         setOpen(false);
+        setConfirmLoading(false);
     };
 
     useEffect(() => {
@@ -136,21 +138,33 @@ export default function BoardGameMgt() {
 
     return (
         <>
-            <div className="board-games-header" style={{ background: colorBgContainer, padding: 12 }}>
+            <div
+                className="board-games-header"
+                style={{ background: colorBgContainer, padding: 12 }}
+            >
                 <h2>桌游列表</h2>
                 <div className="header-extra-actions">
-                    <Button type="primary" onClick={showCreateBoardGameModal}>添加桌游</Button>
+                    <Button type="primary" onClick={showCreateBoardGameModal}>
+                        添加桌游
+                    </Button>
                 </div>
             </div>
-            <div className="board-games-content" style={{ background: colorBgContainer, padding: 12, marginTop: 12 }}>
+            <div
+                className="board-games-content"
+                style={{
+                    background: colorBgContainer,
+                    padding: 12,
+                    marginTop: 12,
+                }}
+            >
                 <Row>
                     <Col span={8}>
                         <Input.Search
                             value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            onSearch={(value) => {
+                            onChange={e => setSearch(e.target.value)}
+                            onSearch={value => {
                                 setSearch(value);
-                                setPagination((prev) => ({
+                                setPagination(prev => ({
                                     ...prev,
                                     current: 1, // 重置到第一页
                                 }));
@@ -168,7 +182,7 @@ export default function BoardGameMgt() {
                         current: pagination.current,
                         pageSize: pagination.pageSize,
                         total: pagination.total,
-                        showSizeChanger: true
+                        showSizeChanger: true,
                     }}
                     loading={loading}
                     onChange={handleTableChange}
@@ -178,7 +192,8 @@ export default function BoardGameMgt() {
                 open={open}
                 confirmLoading={confirmLoading}
                 onOk={handleCreateBoardGame}
-                onCancel={handleCreateBoardGameCancel} />
+                onCancel={handleCreateBoardGameCancel}
+            />
         </>
     );
 }

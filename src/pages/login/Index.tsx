@@ -3,10 +3,12 @@ import { Button, Form, Input } from 'antd';
 import './index.scss';
 import UserLogin from '@/assets/user_login.svg';
 import { useForm } from 'antd/es/form/Form';
-import { loginApi } from '@/api/auth';
+import { login } from '@/api/auth';
 import { pick } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 import { setToken } from '@/utils/local';
+import { login as loginReducer } from '@/store/features/userSlice';
+import { useDispatch } from 'react-redux';
 
 type FieldType = {
     username?: string;
@@ -17,13 +19,15 @@ type FieldType = {
 export default function Login() {
     const [form] = useForm();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const onFinish: FormProps<FieldType>['onFinish'] = values => {
         form.setFieldsValue({ ...values });
-        loginApi(pick(form.getFieldsValue(), ['username', 'password']))
+        login(pick(form.getFieldsValue(), ['username', 'password']))
             .then((res: any) => {
                 console.log('登录信息', res);
                 if (res.code === 200) {
                     setToken(res.data.accessToken);
+                    dispatch(loginReducer(res.data));
                     navigate('/');
                 }
             })
@@ -55,7 +59,7 @@ export default function Login() {
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
                     >
-                        <div className="form-title">桌游助手</div>
+                        <div className="form-title">学习助手</div>
                         <Form.Item<FieldType>
                             label="用户名"
                             name="username"

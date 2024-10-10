@@ -6,10 +6,10 @@ interface AuthInfo {
     email?: string;
 }
 
-export function loginApi(params: AuthInfo) {
+export function login(params: AuthInfo) {
     return service.post('/api/auth/login', params);
 }
 
-export function getUsers() {
-    return service.get('/api/users');
+export function logout() {
+    return service.post('/api/auth/logout');
 }
