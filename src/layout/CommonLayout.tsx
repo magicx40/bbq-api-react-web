@@ -50,13 +50,7 @@ export default function CommonLayout() {
 
     return (
         <Layout>
-            <Header
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                }}
-            >
+            <Header className="layout-header-wrapper">
                 <div className="layout-header">
                     <h1 className="logo-vertical">小韩试题网</h1>
                 </div>
@@ -67,7 +61,7 @@ export default function CommonLayout() {
                                 src={<img src={UserMaleIcon} alt="avatar" />}
                                 style={{ cursor: 'pointer' }}
                             />
-                            <span style={{ color: '#FFFFFF' }}>{username}</span>
+                            <span style={{ color: '#000000' }}>{username}</span>
                         </div>
                     </Dropdown>
                 </div>

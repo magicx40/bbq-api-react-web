@@ -1,4 +1,5 @@
-import { DatePicker, Form, Input, InputNumber, Modal } from 'antd';
+import { createBoardGame } from '@/api/board-game-mgt';
+import { DatePicker, Form, Input, InputNumber, Modal, message } from 'antd';
 
 interface CreateBoardGameProps {
     open: boolean;
@@ -17,11 +18,24 @@ export default function CreateBoardGame({
 
     const handleOk = (e: any) => {
         form.validateFields()
-            .then(values => {
+            .then(async valueMap => {
+                console.log('v', valueMap);
+                valueMap.releaseDate =
+                    valueMap?.releaseDate?.format('YYYY-MM-DD');
+                try {
+                    const { code, message: msg }: any = await createBoardGame(
+                        valueMap
+                    );
+                    if (code === 200) {
+                        message.success(msg);
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
                 onOk(e);
             })
             .catch(error => {
-                console.log(error);
+                console.error(error);
             });
     };
     const handleCancel = (e: any) => {
@@ -119,8 +133,8 @@ export default function CreateBoardGame({
 
                 <Form.Item
                     name="publisher"
-                    label="游戏类型"
-                    rules={[{ required: true, message: '请输入游戏类型!' }]}
+                    label="出版商"
+                    rules={[{ required: true, message: '请输入出版商!' }]}
                 >
                     <Input />
                 </Form.Item>
@@ -135,8 +149,8 @@ export default function CreateBoardGame({
 
                 <Form.Item
                     name="category"
-                    label="游戏类别"
-                    rules={[{ required: true, message: '请输入游戏类别!' }]}
+                    label="游戏分类"
+                    rules={[{ required: true, message: '请输入游戏分类!' }]}
                 >
                     <Input />
                 </Form.Item>

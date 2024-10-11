@@ -124,6 +124,7 @@ export default function BoardGameMgt() {
     };
 
     const handleCreateBoardGame = () => {
+        setOpen(false);
         setConfirmLoading(false);
     };
 

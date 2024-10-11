@@ -5,5 +5,20 @@ export function getBoardGameList(params: {
     limit: number;
     title?: string;
 }) {
-  return service.get('/api/board-games/list', { params });
+    return service.get('/api/board-games/list', { params });
+}
+
+export function createBoardGame(params: {
+    title: string;
+    description: string;
+    minPlayers: number;
+    maxPlayers: number;
+    playTime: number;
+    ageRating: number;
+    publisher: string;
+    releaseDate: string;
+    category: string;
+    imageUrl?: string;
+}) {
+    return service.post('/api/board-games/save', params);
 }
