@@ -1,0 +1,19 @@
+.python-learn-page {
+    .python-learn-header {
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+    }
+    .python-learn-content {
+        min-height: 500px;
+        .python-learn-content-table {
+            Button {
+                float: right;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

@@ -25,6 +25,10 @@ export default function CommonLayout() {
             key: '1',
             label: <Link to="/board-game-management">桌游管理</Link>,
         },
+        {
+            key: '2',
+            label: <Link to="/python-learn">python学习</Link>,
+        },
     ];
     const currentPath = useLocation().pathname;
     const selectedKeys: string[] = [];

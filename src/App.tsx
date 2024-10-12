@@ -9,6 +9,7 @@ import CommonLayout from './layout/CommonLayout';
 import Login from './pages/login/Index';
 import NotFound from './layout/404';
 import history from './utils/history';
+import PythonLearn from './pages/python';
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                         path="/board-game-management"
                         element={<BoardGameMgt />}
                     />
+                    <Route path="/python-learn" element={<PythonLearn />} />
                     <Route path="/404" element={<NotFound />} />
                     <Route path="*" element={<Navigate to="/404" replace />} />
                 </Route>
