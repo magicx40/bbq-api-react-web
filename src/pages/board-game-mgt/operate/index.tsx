@@ -1,36 +1,49 @@
-import { createBoardGame } from '@/api/board-game-mgt';
-import { DatePicker, Form, Input, InputNumber, Modal, message } from 'antd';
+import {
+    createBoardGame,
+    updateBoardGame as updateBoardGameApi,
+} from '@/api/board-game-mgt';
+import {
+    DatePicker,
+    Form,
+    Input,
+    InputNumber,
+    Modal,
+    message as Msg,
+} from 'antd';
+import { DataType } from '../Index';
+import { omit } from 'lodash';
 
-interface CreateBoardGameProps {
+interface OperateBoardGameProps {
     open: boolean;
+    type: 'create' | 'edit';
+    record: ({ id: number } & DataType) | null;
     confirmLoading: boolean;
+    getBoardGames: () => void;
     onOk: (e: any) => void;
     onCancel: (e: any) => void;
 }
 
-export default function CreateBoardGame({
+export default function OperateBoardGame({
     open,
+    type,
+    record,
     confirmLoading,
     onOk,
     onCancel,
-}: CreateBoardGameProps) {
+    getBoardGames,
+}: OperateBoardGameProps) {
     const [form] = Form.useForm();
 
     const handleOk = (e: any) => {
         form.validateFields()
             .then(async valueMap => {
-                console.log('v', valueMap);
-                valueMap.releaseDate =
-                    valueMap?.releaseDate?.format('YYYY-MM-DD');
-                try {
-                    const { code, message: msg }: any = await createBoardGame(
-                        valueMap
-                    );
-                    if (code === 200) {
-                        message.success(msg);
-                    }
-                } catch (err) {
-                    console.error(err);
+                if (type === 'create') {
+                    await createBGame(valueMap);
+                } else {
+                    await updateBoardGame({
+                        id: record?.id,
+                        ...valueMap,
+                    });
                 }
                 onOk(e);
             })
@@ -38,6 +51,40 @@ export default function CreateBoardGame({
                 console.error(error);
             });
     };
+
+    const createBGame = async (createForm: any) => {
+        console.log('v', createForm);
+        createForm.releaseDate = createForm?.releaseDate?.format('YYYY-MM-DD');
+        try {
+            const { code, message }: any = await createBoardGame(createForm);
+            if (code === 200) {
+                Msg.success(message);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const updateBoardGame = async (record: { id: number } & DataType) => {
+        try {
+            const { code, message }: any = await updateBoardGameApi(
+                record.id,
+                omit(
+                    {
+                        ...record,
+                    },
+                    'id'
+                )
+            );
+            if (code === 200) {
+                Msg.success(message);
+                getBoardGames();
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     const handleCancel = (e: any) => {
         form.resetFields();
         onCancel(e);

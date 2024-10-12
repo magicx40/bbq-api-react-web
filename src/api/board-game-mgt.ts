@@ -22,3 +22,21 @@ export function createBoardGame(params: {
 }) {
     return service.post('/api/board-games/save', params);
 }
+
+export function updateBoardGame(
+    id: number,
+    params: Partial<{
+        title: string;
+        description: string;
+        minPlayers: number;
+        maxPlayers: number;
+        playTime: number;
+        ageRating: number;
+        publisher: string;
+        releaseDate: string;
+        category: string;
+        imageUrl: string;
+    }>
+) {
+    return service.put(`/api/board-games/update/${id}`, params);
+}

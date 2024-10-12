@@ -2,9 +2,9 @@ import { Button, Col, Input, Row, Table, TableProps, theme } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { getBoardGameList } from '@/api/board-game-mgt';
 import './index.scss';
-import CreateBoardGame from './create';
+import OperateBoardGame from './operate';
 
-interface DataType {
+export interface DataType {
     title: string;
     description: string;
     minPlayers: number;
@@ -25,7 +25,7 @@ interface Pagination {
     total: number;
 }
 
-const columns: TableProps<DataType>['columns'] = [
+const getColumns = (editHandler: Function): TableProps<DataType>['columns'] => [
     {
         title: '名称',
         dataIndex: 'title',
@@ -71,6 +71,15 @@ const columns: TableProps<DataType>['columns'] = [
         dataIndex: 'category',
         key: 'category',
     },
+    {
+        title: '操作',
+        key: 'action',
+        render: (_, record) => (
+            <Button type="link" onClick={() => editHandler(record)}>
+                编辑
+            </Button>
+        ),
+    },
 ];
 
 export default function BoardGameMgt() {
@@ -87,6 +96,37 @@ export default function BoardGameMgt() {
     });
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
+    const [operateBoardGameType, setOperateBoardGameType] = useState<
+        'create' | 'edit'
+    >('create');
+    const [record, setRecord] = useState<({ id: number } & DataType) | null>(
+        null
+    );
+
+    const handleEditBoardGame = (row: { id: number } & DataType) => {
+        console.log('编辑桌游', row);
+        setOperateBoardGameType('edit');
+        setRecord(row);
+    };
+    const columns = getColumns(handleEditBoardGame);
+
+    const handleTableChange = (newPagination: any) => {
+        setPagination(prev => ({
+            ...prev,
+            current: newPagination.current,
+            pageSize: newPagination.pageSize,
+        }));
+    };
+
+    const showCreateBoardGameModal = () => {
+        setOperateBoardGameType('create');
+        setOpen(true);
+    };
+
+    const handleBoardGameOperate = () => {
+        setOpen(false);
+        setConfirmLoading(false);
+    };
 
     const getBoardGames = useCallback(async () => {
         setLoading(true);
@@ -110,28 +150,6 @@ export default function BoardGameMgt() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pagination.current, pagination.pageSize, search]);
-
-    const handleTableChange = (newPagination: any) => {
-        setPagination(prev => ({
-            ...prev,
-            current: newPagination.current,
-            pageSize: newPagination.pageSize,
-        }));
-    };
-
-    const showCreateBoardGameModal = () => {
-        setOpen(true);
-    };
-
-    const handleCreateBoardGame = () => {
-        setOpen(false);
-        setConfirmLoading(false);
-    };
-
-    const handleCreateBoardGameCancel = () => {
-        setOpen(false);
-        setConfirmLoading(false);
-    };
 
     useEffect(() => {
         getBoardGames();
@@ -189,11 +207,14 @@ export default function BoardGameMgt() {
                     onChange={handleTableChange}
                 />
             </div>
-            <CreateBoardGame
+            <OperateBoardGame
                 open={open}
+                type={operateBoardGameType}
+                record={record}
                 confirmLoading={confirmLoading}
-                onOk={handleCreateBoardGame}
-                onCancel={handleCreateBoardGameCancel}
+                getBoardGames={getBoardGames}
+                onOk={handleBoardGameOperate}
+                onCancel={handleBoardGameOperate}
             />
         </>
     );

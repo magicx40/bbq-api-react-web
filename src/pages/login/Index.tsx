@@ -59,7 +59,7 @@ export default function Login() {
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
                     >
-                        <div className="form-title">学习助手</div>
+                        <div className="form-title">桌游助手</div>
                         <Form.Item<FieldType>
                             label="用户名"
                             name="username"
