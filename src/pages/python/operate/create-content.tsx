@@ -89,7 +89,7 @@ export default function CreateContent({
                     label="示例"
                     rules={[{ required: true, message: '请输入示例!' }]}
                 >
-                    <Input />
+                    <Input.TextArea rows={4} />
                 </Form.Item>
             </Form>
         </Modal>

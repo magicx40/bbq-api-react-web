@@ -1,7 +1,7 @@
 import service from '@/utils/http';
 
-export function getPyContents() {
-    return service.get('/api/contents');
+export function getPyChapters() {
+    return service.get('/api/chapters');
 }
 
 export function createChapter(params: { title: string }) {
