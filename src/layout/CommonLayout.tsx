@@ -75,7 +75,10 @@ export default function CommonLayout() {
                     <Menu
                         mode="inline"
                         selectedKeys={selectedKeys}
-                        style={{ height: '100%', borderRight: 0 }}
+                        style={{
+                            height: '100%',
+                            borderRight: 0,
+                        }}
                         items={items}
                     />
                 </Sider>
