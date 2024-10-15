@@ -1,5 +1,6 @@
 import { createContent as createContentApi } from '@/api/python-learn';
-import { Form, Input, Modal, message as Msg } from 'antd';
+import AceEditor from '@/components/ace-editor';
+import { Form, Input, Modal, message as Msg, Radio } from 'antd';
 import { merge } from 'lodash';
 
 interface CreateContentProps {
@@ -19,11 +20,13 @@ export default function CreateContent({
     onCancel,
 }: CreateContentProps) {
     const [form] = Form.useForm();
+    const type = Form.useWatch('type', form);
 
     const handleOk = (e: any) => {
         form.validateFields()
             .then(async valueMap => {
                 await createContent(merge(valueMap, { chapterId }));
+                form.resetFields();
                 onOk(e);
             })
             .catch(error => {
@@ -36,6 +39,7 @@ export default function CreateContent({
         explanation: string;
         example: string;
         chapterId: number;
+        type: number;
     }) => {
         try {
             const { code, message }: any = await createContentApi(params);
@@ -61,13 +65,14 @@ export default function CreateContent({
             confirmLoading={confirmLoading}
             okText="确认"
             cancelText="取消"
+            width={1000}
             onOk={handleOk}
             onCancel={handleCancel}
         >
             <Form
                 name="create_content"
                 form={form}
-                initialValues={{ remember: true }}
+                initialValues={{ type: 0 }}
                 autoComplete="off"
             >
                 <Form.Item
@@ -85,11 +90,25 @@ export default function CreateContent({
                     <Input />
                 </Form.Item>
                 <Form.Item
+                    name="type"
+                    label="示例类型"
+                    rules={[{ required: true, message: '请输入示例类型!' }]}
+                >
+                    <Radio.Group>
+                        <Radio value={0}>文本</Radio>
+                        <Radio value={1}>代码</Radio>
+                    </Radio.Group>
+                </Form.Item>
+                <Form.Item
                     name="example"
                     label="示例"
                     rules={[{ required: true, message: '请输入示例!' }]}
                 >
-                    <Input.TextArea rows={4} />
+                    {type === 1 ? (
+                        <AceEditor height="200px" width="100%" />
+                    ) : (
+                        <Input.TextArea rows={4} />
+                    )}
                 </Form.Item>
             </Form>
         </Modal>

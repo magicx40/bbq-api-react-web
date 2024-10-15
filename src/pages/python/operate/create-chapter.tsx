@@ -33,6 +33,7 @@ export default function CreateChapter({
             const { code, message }: any = await createChapterApi(params);
             if (code === 200) {
                 Msg.success(message);
+                form.resetFields();
                 refresh();
             }
         } catch (err) {

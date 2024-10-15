@@ -16,3 +16,7 @@ export function createContent(params: {
 }) {
     return service.post('/api/contents', params);
 }
+
+export function deletePyContent(params: { id: number }) {
+    return service.post('/api/contents/delete', params);
+}
