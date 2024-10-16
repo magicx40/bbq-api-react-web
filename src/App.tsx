@@ -4,7 +4,6 @@ import {
     Route,
     Routes,
 } from 'react-router-dom';
-import BoardGameMgt from './pages/board-game-mgt/Index';
 import CommonLayout from './layout/CommonLayout';
 import Login from './pages/login/Index';
 import NotFound from './layout/404';
