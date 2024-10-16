@@ -18,13 +18,7 @@ function App() {
                 <Route element={<CommonLayout />}>
                     <Route
                         path="/"
-                        element={
-                            <Navigate to="/board-game-management" replace />
-                        }
-                    />
-                    <Route
-                        path="/board-game-management"
-                        element={<BoardGameMgt />}
+                        element={<Navigate to="/python-learn" replace />}
                     />
                     <Route path="/python-learn" element={<PythonLearn />} />
                     <Route path="/404" element={<NotFound />} />

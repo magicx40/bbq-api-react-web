@@ -43,56 +43,56 @@ export default function Login() {
 
     return (
         <div className="login-page">
-            <div className="login-container">
-                <div className="login-img">
-                    <img src={UserLogin} alt="用户登录" />
-                </div>
-                <div className="login-form">
-                    <Form
-                        name="basic"
-                        form={form}
-                        labelCol={{ span: 6 }}
-                        wrapperCol={{ span: 16 }}
-                        style={{ maxWidth: 600 }}
-                        initialValues={{ remember: true }}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
-                        autoComplete="off"
+            <div className="login-desc">
+                <img src={UserLogin} alt="login" />
+                <h2>办公助手后台管理系统</h2>
+                <p>做给自己最好的办公助手</p>
+            </div>
+            <div className="login-form">
+                <Form
+                    name="basic"
+                    form={form}
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 16 }}
+                    style={{ maxWidth: 600 }}
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                >
+                    <div className="form-title">登录</div>
+                    <Form.Item<FieldType>
+                        label="用户名"
+                        name="username"
+                        rules={[
+                            {
+                                required: true,
+                                message: '请输入用户名！',
+                            },
+                        ]}
                     >
-                        <div className="form-title">桌游助手</div>
-                        <Form.Item<FieldType>
-                            label="用户名"
-                            name="username"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入用户名！',
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
+                        <Input />
+                    </Form.Item>
 
-                        <Form.Item<FieldType>
-                            label="密码"
-                            name="password"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入密码！',
-                                },
-                            ]}
-                        >
-                            <Input.Password />
-                        </Form.Item>
+                    <Form.Item<FieldType>
+                        label="密码"
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: '请输入密码！',
+                            },
+                        ]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
 
-                        <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
-                            <Button type="primary" htmlType="submit">
-                                登录
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </div>
+                    <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
+                        <Button type="primary" htmlType="submit">
+                            登录
+                        </Button>
+                    </Form.Item>
+                </Form>
             </div>
         </div>
     );

@@ -23,10 +23,6 @@ export default function CommonLayout() {
     const items = [
         {
             key: '1',
-            label: <Link to="/board-game-management">桌游管理</Link>,
-        },
-        {
-            key: '2',
             label: <Link to="/python-learn">python学习</Link>,
         },
     ];
@@ -56,7 +52,7 @@ export default function CommonLayout() {
         <Layout>
             <Header className="layout-header-wrapper">
                 <div className="layout-header">
-                    <h1 className="logo-vertical">桌游助手</h1>
+                    <h1 className="logo-vertical">办公助手</h1>
                 </div>
                 <div className="layout-header-user">
                     <Dropdown menu={{ items: userMenu, onClick: handleLogout }}>
