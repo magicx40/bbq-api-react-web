@@ -43,6 +43,7 @@ export default function Login() {
 
     return (
         <div className="login-page">
+            <img className="site-logo" src="/logo.png" alt="logo" />
             <div className="login-desc">
                 <img src={UserLogin} alt="login" />
                 <h2>办公助手后台管理系统</h2>

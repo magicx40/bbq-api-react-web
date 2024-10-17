@@ -52,7 +52,12 @@ export default function CommonLayout() {
         <Layout>
             <Header className="layout-header-wrapper">
                 <div className="layout-header">
-                    <h1 className="logo-vertical">办公助手</h1>
+                    <img
+                        className="site-logo-small"
+                        src="/logo-small.png"
+                        alt="logo"
+                    />
+                    <h1 className="layout-header-title">办公助手</h1>
                 </div>
                 <div className="layout-header-user">
                     <Dropdown menu={{ items: userMenu, onClick: handleLogout }}>
