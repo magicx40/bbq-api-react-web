@@ -40,9 +40,13 @@
 
     .login-form {
         flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         .ant-form {
             margin-bottom: 10%;
+            flex: 1;
         }
 
         .form-title {

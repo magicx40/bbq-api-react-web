@@ -1,14 +1,18 @@
 .python-learn-page {
+    padding: 12px;
+
     .python-learn-header {
-        position: sticky;
-        top: 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding-bottom: 12px;
         z-index: 100;
     }
+
     .python-learn-content {
+        padding: 12px 0;
         min-height: 500px;
+
         .python-learn-content-table {
             Button {
                 float: right;

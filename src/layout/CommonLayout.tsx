@@ -4,6 +4,7 @@ import UserMaleIcon from '@/assets/user_male.svg';
 import { logout } from '@/api/auth';
 import { logout as logoutReducer } from '@/store/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Footer } from 'antd/es/layout/layout';
 const { Header, Sider, Content } = Layout;
 
 const userMenu: MenuProps['items'] = [
@@ -50,7 +51,16 @@ export default function CommonLayout() {
 
     return (
         <Layout>
-            <Header className="layout-header-wrapper">
+            <Sider
+                breakpoint="lg"
+                collapsedWidth="0"
+                onBreakpoint={broken => {
+                    console.log(broken);
+                }}
+                onCollapse={(collapsed, type) => {
+                    console.log(collapsed, type);
+                }}
+            >
                 <div className="layout-header">
                     <img
                         className="site-logo-small"
@@ -59,41 +69,45 @@ export default function CommonLayout() {
                     />
                     <h1 className="layout-header-title">办公助手</h1>
                 </div>
-                <div className="layout-header-user">
-                    <Dropdown menu={{ items: userMenu, onClick: handleLogout }}>
-                        <div>
-                            <Avatar
-                                src={<img src={UserMaleIcon} alt="avatar" />}
-                                style={{ cursor: 'pointer' }}
-                            />
-                            <span style={{ color: '#FFFFFF' }}>{username}</span>
-                        </div>
-                    </Dropdown>
-                </div>
-            </Header>
+                <Menu
+                    theme="dark"
+                    mode="inline"
+                    selectedKeys={selectedKeys}
+                    items={items}
+                />
+            </Sider>
             <Layout>
-                <Sider width={200} style={{ background: colorBgContainer }}>
-                    <Menu
-                        mode="inline"
-                        selectedKeys={selectedKeys}
-                        style={{
-                            height: '100%',
-                            borderRight: 0,
-                        }}
-                        items={items}
-                    />
-                </Sider>
-                <Layout style={{ padding: '12px' }}>
-                    <Content
-                        style={{
-                            margin: 0,
-                            minHeight: 280,
-                            overflow: 'scroll',
-                        }}
-                    >
+                <div>
+                    <Header style={{ background: colorBgContainer }}>
+                        <div className="layout-header-user">
+                            <Dropdown
+                                menu={{
+                                    items: userMenu,
+                                    onClick: handleLogout,
+                                }}
+                            >
+                                <div>
+                                    <Avatar
+                                        src={
+                                            <img
+                                                src={UserMaleIcon}
+                                                alt="avatar"
+                                            />
+                                        }
+                                        style={{ cursor: 'pointer' }}
+                                    />
+                                    <span>{username}</span>
+                                </div>
+                            </Dropdown>
+                        </div>
+                    </Header>
+                    <Content style={{ margin: '12px' }}>
                         <Outlet />
                     </Content>
-                </Layout>
+                    <Footer style={{ textAlign: 'center' }}>
+                        Copyright © 2024 Mr.Han
+                    </Footer>
+                </div>
             </Layout>
         </Layout>
     );

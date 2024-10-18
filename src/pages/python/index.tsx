@@ -187,10 +187,7 @@ export default function PythonLearn() {
 
     return (
         <div className="python-learn-page">
-            <div
-                className="python-learn-header"
-                style={{ background: colorBgContainer, padding: 12 }}
-            >
+            <div className="python-learn-header">
                 <h2>python课程列表</h2>
                 <div className="header-extra-actions">
                     <Button type="primary" onClick={() => setChapterOpen(true)}>
@@ -198,14 +195,7 @@ export default function PythonLearn() {
                     </Button>
                 </div>
             </div>
-            <div
-                className="python-learn-content"
-                style={{
-                    background: colorBgContainer,
-                    padding: 12,
-                    marginTop: 12,
-                }}
-            >
+            <div className="python-learn-content">
                 {isEmpty(contents) ? <Empty /> : <Collapse items={items} />}
             </div>
             <CreateChapter
