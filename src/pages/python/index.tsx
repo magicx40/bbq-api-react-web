@@ -6,7 +6,6 @@ import {
     Modal,
     Table,
     TableProps,
-    theme,
     message as Msg,
 } from 'antd';
 import './index.scss';
