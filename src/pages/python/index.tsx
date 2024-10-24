@@ -71,9 +71,6 @@ const getColumns = ({
 };
 
 export default function PythonLearn() {
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
     const [contents, setContents] = useState<any[]>([]);
     const [chapterOpen, setChapterOpen] = useState(false);
     const [chapterConfirmLoading, setChapterConfirmLoading] = useState(false);

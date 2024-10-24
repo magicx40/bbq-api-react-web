@@ -101,7 +101,7 @@ export default function CommonLayout() {
                             </Dropdown>
                         </div>
                     </Header>
-                    <Content style={{ margin: '12px' }}>
+                    <Content style={{ margin: '12px', minHeight: '650px' }}>
                         <Outlet />
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
