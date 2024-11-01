@@ -1,0 +1,11 @@
+.prd-page {
+    padding: 12px;
+
+    .prd-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 12px;
+        z-index: 100;
+    }
+}

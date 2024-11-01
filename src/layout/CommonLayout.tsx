@@ -9,7 +9,7 @@ const { Header, Sider, Content } = Layout;
 
 const userMenu: MenuProps['items'] = [
     {
-        key: '1',
+        key: 'logout',
         label: <span>退出登录</span>,
     },
 ];
@@ -23,8 +23,12 @@ export default function CommonLayout() {
     const dispatch = useDispatch();
     const items = [
         {
-            key: '1',
-            label: <Link to="/python-learn">python学习</Link>,
+            key: 'python-learn',
+            label: <Link to="/python-learn">Python学习</Link>,
+        },
+        {
+            key: 'prd-mgt',
+            label: <Link to="/prd-mgt">PRD管理</Link>,
         },
     ];
     const currentPath = useLocation().pathname;
@@ -51,16 +55,7 @@ export default function CommonLayout() {
 
     return (
         <Layout>
-            <Sider
-                breakpoint="lg"
-                collapsedWidth="0"
-                onBreakpoint={broken => {
-                    console.log(broken);
-                }}
-                onCollapse={(collapsed, type) => {
-                    console.log(collapsed, type);
-                }}
-            >
+            <Sider breakpoint="lg" collapsedWidth="0">
                 <div className="layout-header">
                     <img
                         className="site-logo-small"

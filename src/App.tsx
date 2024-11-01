@@ -9,6 +9,7 @@ import Login from './pages/login/Index';
 import NotFound from './layout/404';
 import history from './utils/history';
 import PythonLearn from './pages/python';
+import Prd from './pages/prd';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                         element={<Navigate to="/python-learn" replace />}
                     />
                     <Route path="/python-learn" element={<PythonLearn />} />
+                    <Route path="/prd-mgt" element={<Prd />} />
                     <Route path="/404" element={<NotFound />} />
                     <Route path="*" element={<Navigate to="/404" replace />} />
                 </Route>
